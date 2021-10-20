@@ -1,0 +1,12 @@
+[package]
+name = "integration-tests"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+account-service = { path = "../account-service" }
+tokio = { version = "1", features = ["full"] }
+inventory = "0.1.10"
+core-macro = { path = "../core-macro" }

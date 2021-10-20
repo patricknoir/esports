@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/account-service/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/core-macro/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/core_macro/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/integration-tests/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
