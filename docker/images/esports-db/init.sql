@@ -1,0 +1,2 @@
+CREATE DATABASE esports;
+GRANT ALL PRIVILEGES ON DATABASE esports TO postgres;

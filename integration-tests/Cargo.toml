@@ -10,3 +10,7 @@ account-service = { path = "../account-service" }
 tokio = { version = "1", features = ["full"] }
 inventory = "0.1.10"
 core-macro = { path = "../core-macro" }
+testcontainers = "0.12.0"
+diesel = { version = "1.4.0", features = ["serde_json", "chrono", "postgres", "r2d2", "uuidv07"] }
+diesel_migrations = "1.4.0"
+postgres = "0.19.2"
