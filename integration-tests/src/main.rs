@@ -12,20 +12,31 @@ use diesel::r2d2::{ConnectionManager, ManageConnection};
 use diesel::PgConnection;
 use std::collections::HashMap;
 
+const DB_URL: &str = "postgres://postgres:postgres@localhost:5432/esports";
+const PORT_ORIGIN: u16 = 5432;
+const PORT_DEST: u16 = 5432;
+const DB_NAME: &str = "esports";
+const DB_USER: &str = "postgres";
+const DB_PASS: &str = "postgres";
+
+const POSTGRES_DB: &str = "POSTGRES_DB";
+const POSTGRES_PASSWORD: &str = "POSTGRES_PASSWORD";
+const POSTGRES_USER: &str = "POSTGRES_USER";
+
+
 embed_migrations!("../account-service/migrations");
 
 
 async fn startup<'a>(docker: &'a clients::Cli) -> Result<Container<'a, clients::Cli, postgres::Postgres>, Box<dyn Error>> {
 	println!("Startup!");
-	let args = RunArgs::default().with_mapped_port((5432, 5432));
+	let args = RunArgs::default().with_mapped_port((PORT_ORIGIN, PORT_DEST));
 	let mut envs = HashMap::new();
-	envs.insert("POSTGRES_DB".to_string(), "esports".to_string());
-	envs.insert("POSTGRES_PASSWORD".to_string(), "postgres".to_string());
-	envs.insert("POSTGRES_USER".to_string(), "postgres".to_string());
+	envs.insert(POSTGRES_DB.to_string(), DB_NAME.to_string());
+	envs.insert(POSTGRES_USER.to_string(), DB_USER.to_string());
+	envs.insert(POSTGRES_PASSWORD.to_string(), DB_PASS.to_string());
 	let node = docker.run_with_args(postgres::Postgres::default().with_env_vars(envs), args);
 
-	let db_url = "postgres://postgres:postgres@localhost:5432/esports";
-	let manager = ConnectionManager::<PgConnection>::new(db_url);
+	let manager = ConnectionManager::<PgConnection>::new(DB_URL);
 	let conn = manager.connect()?;
 
 	embedded_migrations::run(&conn)?;
