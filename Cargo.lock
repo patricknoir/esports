@@ -1142,6 +1142,7 @@ name = "integration-tests"
 version = "0.1.0"
 dependencies = [
  "account-service",
+ "core",
  "core-macro",
  "diesel",
  "diesel_migrations",

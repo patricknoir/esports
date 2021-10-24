@@ -10,7 +10,7 @@ use diesel_migrations::*;
 embed_migrations!("../account-service/migrations");
 
 
-const DB_URL: &str = "postgres://postgres:postgres@localhost:5432/esports";
+pub const DB_URL: &str = "postgres://postgres:postgres@localhost:5432/esports";
 const PORT_ORIGIN: u16 = 5432;
 const PORT_DEST: u16 = 5432;
 const DB_NAME: &str = "esports";
