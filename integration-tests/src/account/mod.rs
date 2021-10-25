@@ -1,6 +1,6 @@
-use core_macro::integration_test;
+use core_macro::async_integration_test;
 
-#[integration_test]
-pub fn base_account_test() {
+#[async_integration_test]
+pub async fn base_account_test() {
 	println!("Base test!");
 }

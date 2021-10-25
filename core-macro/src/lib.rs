@@ -66,3 +66,28 @@ pub fn integration_test(_args: TokenStream, input: TokenStream) -> TokenStream {
 
     TokenStream::from(expanded)
 }
+
+#[proc_macro_attribute]
+pub fn async_integration_test(_args: TokenStream, input: TokenStream) -> TokenStream {
+    // let args = parse_macro_input!(args as AttributeArgs);
+    let fn_def = parse_macro_input!(input as ItemFn);
+
+    let fn_name = &fn_def.sig.ident;
+
+    let fn_name_str = format!("{}", fn_name.to_string());
+
+    let expanded = quote! {
+        fn #fn_name() {
+            #fn_def
+
+            futures::executor::block_on(#fn_name())
+        }
+
+        inventory::submit!(crate::IntegrationTest{
+            name: #fn_name_str,
+            test_fn: Box::new(#fn_name),
+        });
+    };
+
+    TokenStream::from(expanded)
+}

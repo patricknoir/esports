@@ -1146,6 +1146,7 @@ dependencies = [
  "core-macro",
  "diesel",
  "diesel_migrations",
+ "futures",
  "inventory",
  "postgres",
  "testcontainers",
