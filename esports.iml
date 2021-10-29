@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/core/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/account-service/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/account-service/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/core-macro/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/core_macro/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/integration-tests/src" isTestSource="false" />

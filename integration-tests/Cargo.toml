@@ -16,3 +16,4 @@ diesel_migrations = "1.4.0"
 postgres = "0.19.2"
 core = { path="../core" }
 futures = "0.3.17"
+actix-rt = "1"

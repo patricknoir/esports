@@ -54,12 +54,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
 	let container: Container<clients::Cli, testcontainers::images::postgres::Postgres> = startup(&docker).await.expect("failed during startup");
 
 	for t in inventory::iter::<IntegrationTest> {
-		println!("Running test: {}", t.name);
+		println!("Running tests: {}", t.name);
+		// core::actix_web::web::block(t.test_fn).await?;
 		(t.test_fn)();
 	}
 
-	let mut _s = String::from("");
-	std::io::stdin().read_line(&mut _s)?;
+	// let mut _s = String::from("");
+	// std::io::stdin().read_line(&mut _s)?;
 
 	teardown(&docker, container.id()).await
 }

@@ -6,19 +6,24 @@ version = 3
 name = "account-service"
 version = "0.1.0"
 dependencies = [
+ "actix-rt",
  "chrono",
  "core",
  "core-macro",
  "diesel",
+ "diesel_migrations",
  "dotenv",
  "env_logger",
  "failure",
+ "futures",
  "lazy_static",
  "log",
  "num_cpus",
+ "postgres",
  "regex",
  "serde",
  "serde_json",
+ "testcontainers",
  "uuid",
  "validator",
 ]
@@ -1142,6 +1147,7 @@ name = "integration-tests"
 version = "0.1.0"
 dependencies = [
  "account-service",
+ "actix-rt",
  "core",
  "core-macro",
  "diesel",
