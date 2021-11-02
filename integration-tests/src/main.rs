@@ -9,7 +9,7 @@ use std::error::Error;
 use testcontainers::{clients, Docker, Container};
 use core::actix_web::HttpServer;
 use core::actix_web::web::Data;
-use account_service::AppState;
+use account_service::{AppState, util};
 use core::actix_web::App;
 use core::actix_web;
 
@@ -19,7 +19,7 @@ async fn startup<'a>(docker: &'a clients::Cli) -> Result<Container<'a, clients::
 	println!("Startup!");
 
 	let node = helper::run_image_esports_db(&docker)?;
-	let app_state: AppState = AppState::with_db(helper::DB_URL.to_string()).await;
+	let app_state: AppState = AppState::with_config(util::Config::default()).await;
 
 	HttpServer::new(move || {
 		App::new()
@@ -41,6 +41,14 @@ async fn teardown(docker: &clients::Cli, container_id: &str) -> Result<(), Box<d
 pub struct IntegrationTest {
 	pub name: &'static str,
 	pub test_fn: Box<dyn Fn() -> ()>,
+}
+
+pub struct IntTest<C, F> where
+	C: Fn() -> F,
+	F: std::future::Future
+{
+	pub name: &'static str,
+	pub test_fn: C,
 }
 
 

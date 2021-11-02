@@ -11,6 +11,16 @@ pub struct Claims {
 	pub role: String,
 }
 
+impl Claims {
+	pub fn new(user_id: Uuid, exp: i64, role: String) -> Self {
+		Claims {
+			user_id,
+			exp,
+			role
+		}
+	}
+}
+
 impl From<User> for Claims {
 	fn from(user: User) -> Self {
 		let exp = (Utc::now() + Duration::days(21)).timestamp();

@@ -1,0 +1,16 @@
+[package]
+name = "notification-service"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = "1.13.0"
+lettre = "0.10.0-rc.4"
+core-macro = { path = "../core-macro" }
+core = { path = "../core" }
+serde = { version = "1", features = ["derive"] }
+uuid = { version = "0.8.2", features = ["serde", "v4"]}
+dotenv = "0.15"
+futures = "0.3.17"

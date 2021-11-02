@@ -7,11 +7,6 @@ extern crate proc_macro;
 use proc_macro::TokenStream;
 use syn::{DeriveInput, ItemFn};
 
-#[proc_macro]
-pub fn say_hello(_item: TokenStream) -> TokenStream {
-    "fn hello() { println!(\"Hello!\"); }".parse().unwrap()
-}
-
 #[proc_macro_derive(CanGenerateJwt)]
 pub fn derive_can_generate_jwt(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -35,7 +30,7 @@ pub fn derive_can_decode_jwt(input: TokenStream) -> TokenStream {
 
     let expanded = quote! {
         impl core::jwt::CanDecodeJwt<#name> for String {
-            fn decode_jwt(&self, secret: String) -> core::prelude::Result<core::jsonwebtoken::TokenData<Claims>> {
+            fn decode_jwt(&self, secret: String) -> core::prelude::Result<core::jsonwebtoken::TokenData<#name>> {
             let key= core::jsonwebtoken::DecodingKey::from_secret(secret.as_bytes());
             core::jsonwebtoken::decode(self, &key, &core::jsonwebtoken::Validation::default())
               .map_err(|e| e.into())
@@ -86,7 +81,7 @@ pub fn async_integration_test(_args: TokenStream, input: TokenStream) -> TokenSt
             .enable_all()
             .build()
             .unwrap()
-            .block_on(async { internal(); })
+            .block_on(internal());
         }
 
         inventory::submit!(crate::IntegrationTest{

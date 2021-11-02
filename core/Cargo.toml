@@ -17,3 +17,5 @@ actix-http = "2"
 failure = "0.1.8"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+argonautica = "0.2.0"
+rdkafka = { version = "0.27", features = ["cmake-build"] }

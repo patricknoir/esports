@@ -1,9 +1,10 @@
-use account_service::{AppState, ENVFILE_PATH, api};
+use account_service::{AppState, ENVFILE_PATH, api, util};
 use core::actix_web::{HttpServer, App};
 use core::actix_web::web::Data;
 use std::env;
 use core::prelude::BIND_ADDRESS;
 use core::actix_web;
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -18,6 +19,7 @@ pub async fn start_server(app_state: AppState) -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
           .app_data(Data::new(app_state.clone()))
+          .data(util::Config::default())
           .configure(api::routes)
     })
       .bind(env::var(BIND_ADDRESS).unwrap())?

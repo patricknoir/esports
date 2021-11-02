@@ -1,8 +1,8 @@
 #!/bin/zsh
 docker-compose down &&
-sleep 10s &&
+sleep 15s &&
 docker-compose up &
-sleep 20s &&
+sleep 30s &&
 cd account-service &&
 diesel setup &&
 cd .. &&

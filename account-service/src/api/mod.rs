@@ -11,6 +11,7 @@ use crate::model::claims::Claims;
 use uuid::Uuid;
 use core::actix::Message;
 use crate::model::user::{User, UserChange};
+use crate::model::password_reset_claims::PasswordResetClaims;
 
 const TOKEN_PREFIX: &str = "Bearer";
 
@@ -20,7 +21,9 @@ pub fn routes(cfg: &mut ServiceConfig) {
 		.service(user::register)
 		.service(user::login)
 		.service(user::get_by_id)
-		.service(user::update);
+		.service(user::update)
+		.service(user::request_password_reset)
+		.service(user::complete_password_change);
 }
 
 pub fn extract_authorization_header(req: &HttpRequest) -> Result<String> {
@@ -51,8 +54,20 @@ impl CanDecodeJwt<Claims> for HttpRequest {
 	}
 }
 
+impl CanDecodeJwt<PasswordResetClaims> for HttpRequest {
+	fn decode_jwt(&self, secret: String) -> Result<TokenData<PasswordResetClaims>> {
+		let header = extract_authorization_header(self)?;
+		header.decode_jwt(secret)
+	}
+}
+
 pub struct GetById(pub Uuid);
 impl Message for GetById {
+	type Result = Result<User>;
+}
+
+pub struct GetByEmail(pub String);
+impl Message for GetByEmail {
 	type Result = Result<User>;
 }
 

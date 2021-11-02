@@ -4,5 +4,6 @@ members = [
     "core",
     "core-macro",
     "account-service",
-    "integration-tests"
+    "integration-tests",
+    "notification-service"
 ]
