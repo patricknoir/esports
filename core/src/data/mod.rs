@@ -14,7 +14,7 @@ impl Actor for DataService {
 
 impl DataService {
 	pub fn new(db_url: String) -> Self {
-		DataService(DataService::new_pool(db_url).expect("Error creating DB Pool"))
+		DataService(DataService::new_pool(db_url).expect("Error creating DB Pool {}"))
 	}
 
 	pub fn new_pool(db_url: String) -> Result<PgPool> {

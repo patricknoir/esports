@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: esports-deployment
+  labels:
+    app: esports
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: esports
+  template:
+    metadata:
+      labels:
+        app: esports
+    spec:
+      containers:
+        - name: esports
+          image: patricknoir/esports:1.0
+          ports:
+            - containerPort: 9080
+          env:
+            - name: DATABASE_URL
+              value: "postgres://postgres:postgres@192.168.1.15:30001/esports"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service
+spec:
+  selector:
+    app: esports
+  type: NodePort
+  ports:
+    - port: 9080
+      targetPort: 9080
+      nodePort: 30180
+
