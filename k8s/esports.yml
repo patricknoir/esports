@@ -16,12 +16,13 @@ spec:
     spec:
       containers:
         - name: esports
-          image: patricknoir/esports:1.0
+          image: patricknoir/esports-account:2.0
           ports:
             - containerPort: 9080
           env:
             - name: DATABASE_URL
-              value: "postgres://postgres:postgres@192.168.1.15:30001/esports"
+#              value: "postgres://postgres:postgres@localhost:5432/esports"
+              value: "postgres://postgres:postgres@$(POSTGRES_SERVICE_SERVICE_HOST):$(POSTGRES_SERVICE_SERVICE_PORT)/esports"
 
 ---
 
@@ -32,9 +33,8 @@ metadata:
 spec:
   selector:
     app: esports
-  type: NodePort
   ports:
-    - port: 9080
+    - protocol: TCP
+      port: 9080
       targetPort: 9080
-      nodePort: 30180
 

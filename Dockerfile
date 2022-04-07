@@ -1,5 +1,5 @@
 #FROM rust:1.58.1
-FROM patricknoir/esports-base:1.0
+FROM patricknoir/base-esports:2.0
 
 COPY ./ ./
 
